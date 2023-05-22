@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="container-fluid mybg">
+
+    <div class="row m-0 d-flex justify-content-center" style="margin-top: 80px;">
+        <div class="col-xl-7 bg-light p-5">
+            <h3 class="my-3">Register new account as a <strong>Patient</h3>
+            <form method="POST" class="my-5">
+                {% csrf_token %}
+
+                <!-- 2 col form start -->
+                <div class="row m-0 my-2">
+                    <div class="form-group col-xl-6">
+                        <label class="myForm">firstname</label>
+                        <input type="text" name="firstname" class="form-control">
+                    </div>
+                    <div class="form-group col-xl-6">
+                        <label class="myForm">lastname</label>
+                        <input type="text" name="lastname" class="form-control">
+                    </div>
+                </div>
+                <!-- 2 col form end -->
+
+                <!-- 2 col form start -->
+                <div class="row m-0 my-2">
+                    <div class="form-group col-xl-4">
+                        <label class="myForm">dateOfBirth</label>
+                        <input type="datetime-local" name="dateOfBirth" class="form-control">
+                    </div>
+                    <div class="form-group col-xl-4">
+                        <label class="myForm">contactNo</label>
+                        <input type="number" name="contactNo" class="form-control">
+                    </div>
+                    <div class="form-group col-xl-4">
+                        <label class="myForm">gender</label>
+                        <select name="gender" class="form-control">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- 2 col form end -->
+
+                <!-- 2 col form start -->
+                <div class="row m-0 my-2">
+                    <div class="form-group col-xl-6">
+                        <label class="myForm">address</label>
+                        <input type="text" name="address" class="form-control">
+                    </div>
+                    <div class="form-group col-xl-6">
+                        <label class="myForm">email</label>
+                        <input type="email" name="email" class="form-control">
+                    </div>
+                </div>
+                <!-- 2 col form end -->
+
+
+                <!-- 3 col form start -->
+                <div class="row m-0 my-2">
+                    <div class="form-group col-xl-4">
+                        <label class="myForm">username</label>
+                        <input type="text" name="username" class="form-control">
+                    </div>
+                    <div class="form-group col-xl-4">
+                        <label class="myForm">password</label>
+                        <input type="password" name="password" class="form-control">
+                    </div>
+                    <div class="form-group col-xl-4">
+                        <label class="myForm">password2</label>
+                        <input type="password" name="password2" class="form-control">
+                    </div>
+                </div>
+                <!-- 3 col form end -->
+
+                <div class="row m-0">
+                    <button type="submit" class="mybtn">Submit</button>
+                </div>
+
+            </form>
+        </div>
+        <div class="col-xl-6">
+            <img src="https://images.unsplash.com/photo-1606619788401-85dd53e9c8be?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80" alt="">
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    
+    .mybtn{
+        background-color: #9bdf46;
+        color:white;
+        width:240px;
+        height:50px; 
+        border-radius:50px;
+        border: none !important;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    .form-control{
+        
+        border-bottom: 3px solid #9bdf46;
+    }
+    .myForm{
+        font-weight: normal;
+        font-size: 14px;
+    }
+</style>
+
+
+
+
+{% endblock %}

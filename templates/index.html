@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="container-fluid mybg">
+
+    <div class="row">
+        <div class="col-xl-1"></div>
+        <div class="col-md-6" style="margin-top:160px;">
+            <div class="">
+                <h1 class="my-3">Your Health <strong>is always <br>in the first place</strong></h1>
+                <h2 class="my-3 subtitle">Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</h2>
+                {% if request.user.isPatient %}
+                <p><a class="btn mybtn pt-3" href="{% url 'app:makeAppointment' %}">Make an Appointment</a></p>
+                <p><a class="btn mybtn pt-3" href="{% url 'app:appointmententStatus' %}">Appointment Status</a></p>
+                {% elif request.user.isDoctor %}
+                <p><a class="btn mybtn pt-3" href="{% url 'app:appointmententList' %}">Watch all Appointment</a></p>
+                {% elif request.user.is_superuser %}
+                <p><a class="btn mybtn pt-3" href="{% url 'app:adminPanel' %}">Explore Admin Panel</a></p>
+                {% else %}
+                <p><a class="btn mybtn pt-3" data-toggle="modal" data-target="#loginModal">Explore</a></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<style>
+    .mybg{
+        background-image: 
+        linear-gradient(to right, white 0%, white 35%, rgba(255, 255, 255, 0) 79%, rgba(255, 255, 255, 0) 100%),
+        url(" {% static 'imgs/bg1.jpg' %} ");
+        min-height: 560px;
+    }
+    .subtitle{
+        font-size: 20px;
+        line-height: 1.5;
+        margin-bottom: 30px;
+        font-weight: 300;
+        font-family: "Poppins", Arial, sans-serif;
+        color: rgba(0, 0, 0, 0.5);
+    }
+    .mybtn{
+        background-color: #9bdf46;
+        color:white !important;
+        width:240px;
+        height:50px; 
+        border-radius:50px;
+        border: none !important;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    .mybtn:hover{
+        border: 2px solid #9bdf46 !important;
+        color: #8de225 !important;
+        background-color: white;
+    }
+</style>
+
+
+
+
+{% endblock %}

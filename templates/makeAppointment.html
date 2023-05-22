@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="container-fluid mybg">
+
+    <div class="row m-0 d-flex justify-content-center" style="margin-top: 80px;">
+        <div class="col-xl-7 bg-light p-5">
+            <h3 class="my-3">Book an <strong>Appointment</h3>
+            <form method="POST" class="col-xl-6 my-5">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label class="myForm">Patient Name</label>
+                    <input type="text" name="pname" value="{{request.user.username}}" class="form-control" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label class="myForm">Doctor Name</label>
+                    <select name="doctorpk" class="form-control">
+                        {% if selected_Doctor  is not None %}
+                        <option value="{{selected_Doctor.pk}}">{{selected_Doctor.user}}</option>
+                        <br>
+                        {% endif %}
+                        {% for i in doctor %}
+                        <option value="{{i.pk}}">{{i.user}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="myForm">Date and Time</label>
+                    <input type="datetime-local" name="date" class="form-control">
+                </div>
+
+
+                <div class="row m-0">
+                    <button type="submit" class="mybtn">Submit</button>
+                </div>
+
+            </form>
+        </div>
+        <div class="col-xl-6">
+            <img src="https://images.unsplash.com/photo-1518281361980-b26bfd556770?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=405&q=80" alt="">
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    
+    .mybtn{
+        background-color: #9bdf46;
+        color:white;
+        width:240px;
+        height:50px; 
+        border-radius:50px;
+        border: none !important;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    .form-control{
+        
+        border-bottom: 3px solid #9bdf46;
+    }
+    .myForm{
+        font-weight: normal;
+        font-size: 14px;
+    }
+</style>
+
+
+
+
+{% endblock %}

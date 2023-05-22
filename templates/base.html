@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <title></title>
+
+    <meta charset="UTF-8">
+
+  	<!-- media queary support -->
+  	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+
+  	<!-- Latest compiled and minified CSS -->
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+  	<!-- jQuery library -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  	<!-- Popper JS -->
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+  	<!-- Latest compiled JavaScript -->
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+  	<!-- animated css link -->
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
+
+  	<!-- font awsome css link -->
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  	<!-- poppins font link -->
+  	<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+
+  	<!-- roboto font link -->
+  	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+  	<!-- custom css link -->
+  	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+  </head>
+  <body>
+
+    <div class="container-fluid">
+      <div class="row m-0" style="padding-left: 90px; padding-right: 80px;padding-top: 10px;">
+          <a href="{% url 'app:index' %}" style="font-size: 36px; font-weight: 700;">
+            <span style="color:#3c97e8;">DR</span>
+            <span style="color:#9bdf46;">Appointment</span>
+          </a>
+
+        <div class="col-md-2 ml-auto">
+            <div class="row m-0">
+                <span class="mx-3"><img src="{% static 'imgs/phn.png' %}" style="max-height: 40px;"></span>
+                <p>Call Us<br>02-999-333</p>
+            </div>
+        </div>
+
+        <div class="col-md-3 ml-4">
+            <div class="row m-0">
+                <span class="mx-3"><img src="{% static 'imgs/phn.png' %}" style="max-height: 40px;"></span>
+                <p>Address<br>50/A Green Road, Dhaka</p>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light py-3" style="padding-left: 80px;padding-right: 80px;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active mx-4">
+              <a class="nav-link" href="{% url 'app:index' %}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item mx-4">
+              <a class="nav-link" href="#">About Us</a>
+            </li>
+            <li class="nav-item mx-4">
+                <a class="nav-link" href="{% url 'app:doctorList' %}">Meet Our Doctors</a>
+            </li>
+            <!-- <li class="nav-item mx-4">
+                <a class="nav-link" href="#">Services</a>
+            </li> -->
+            <li class="nav-item mx-4">
+                <a class="nav-link" href="#">Feedback</a>
+            </li>
+
+            
+        </ul>
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link mx-3" href="#">Hi {{request.user.username}}!</a>
+            <li class="nav-item">
+                <a href="{% url 'app:signout' %}" class="btn nav-link" style="background-color: #9bdf46; color:white; width:100px; height:40px; border-radius:40px;">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item" data-toggle="modal" data-target="#loginModal">
+                <a href="#" class="btn nav-link" style="background-color: #9bdf46; color:white; width:100px; height:40px; border-radius:40px;">Login</a>
+            </li>
+            {% endif %}
+        </ul>
+            
+        </div>
+      </nav>
+
+
+
+    {% block content %}
+
+    {% endblock %}
+
+
+
+
+
+
+
+    
+<!-- login modal start -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title login-modal-title" id="loginModalLabel">Welcome back</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'app:signin' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>User name</label>
+                        <input type="text" class="form-control" name="username" placeholder="User name">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="Password">
+                    </div>
+
+                    <div style="height: 80px;"></div>
+
+                    <p class="modal-forgorpass text-center">
+                        <a href="#">Forgot password?</a>
+                    </p>
+                    <input type="submit" class="btn login-submit mt-2 ml-3" name="login" value="Login" style="background-color: #64B53B;">
+                    <p class="need-acnt text-center mt-3">
+                        Need an account?
+                        <a href="#" class="need-acnt-signup" type="button" data-toggle="modal" data-target="#registerModal" data-dismiss="modal" aria-label="Close">
+                            Sign up
+                        </a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- login modal end -->
+
+<!-- register modal start -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title reg-modal-title" id="registerModalLabel">Sign up</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body py-5">
+
+                <a href="{% url 'app:signupPatient' %}" class="reg-container row pt-3 my-4 mx-auto">
+                    <img src="{% static 'icons/student.svg' %}" class="reg_typ_ico px-3">
+                    <p class="reg_type mt-2 ml-4">Sign up as a patient</p>
+                </a>
+                <a href="{% url 'app:signupDoctor' %}" class="reg-container row pt-3 my-4 mx-auto">
+                    <img src="{% static 'icons/teacher.svg' %}" class="reg_typ_ico px-3">
+                    <p class="reg_type mt-2 ml-4">Sign up as a doctor</p>
+                </a>
+                <a href="#" class="reg-container row pt-3 my-4 mx-auto">
+                    <img src="{% static 'icons/administrator.svg' %}" class="reg_typ_ico px-3">
+                    <p class="reg_type mt-2 ml-4">Sign up as an admin</p>
+                </a>
+
+            </div>
+            <div class="modal-footer">
+                <p class="need-acnt text-center mt-2 mx-auto">
+                    Have an account?
+                    <a href="#" class="need-acnt-signup" type="button" data-toggle="modal" data-target="#loginModal" data-dismiss="modal" aria-label="Close">
+                        Login
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- register modal end -->
+
+
+
+
+  </body>
+</html>
+
+
+<style>
+    body{
+      font-family: 'Poppins', sans-serif;
+    }
+    a:hover{
+        text-decoration: none;
+    }
+</style>
+
+
+<!-- Table Sorting Library -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+<script src=" https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#jsDataTableLib').DataTable();
+    $('#jsDataTableLib2').DataTable();
+    $('#jsDataTableLib3').DataTable();
+    $('#jsDataTableLib4').DataTable();
+} );
+</script>

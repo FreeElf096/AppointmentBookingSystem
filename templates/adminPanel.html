@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div style="height:50px"></div>
+
+{% if doctors %}
+<div class="container-fluid mybg">
+    <div class="col-xl-6 mx-auto m-0">
+        <h2 class="text-center">All Doctors List</h2>
+        <p class="subtitleBlue text-center">The largest and most respected accreditation agencies</p>
+    </div>
+</div>
+
+<div class="container-fluid px-5">
+    <table class="table table-striped table-hover" id="jsDataTableLib">
+        <thead>
+          <tr>
+            <th scope="col">username</th>
+            <th scope="col">firstName</th>
+            <th scope="col">lastName</th>
+            <th scope="col">email</th>
+            <th scope="col">dateOfBirth</th>
+            <th scope="col">address</th>
+            <th scope="col">contactNo</th>
+            <th scope="col">degree</th>
+            <th scope="col">speciality</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in doctors %}
+            <tr>
+                <th scope="row">{{i.user.username}}</th>
+                <td>{{i.user.firstName}}</td>
+                <td>{{i.user.lastName}}</td>
+                <td>{{i.user.email}}</td>
+                <td>{{i.user.dateOfBirth}}</td>
+                <td>{{i.user.address}}</td>
+                <td>{{i.user.contactNo}}</td>
+                <td>{{i.degree}}</td>
+                <td>{{i.speciality}}</td>
+                {% if i.isApproved %}
+                <td style="color: green;">Verified</td>
+                {% else %}
+                <td style="color: Red;">Not Verified</td>
+                {% endif %}
+
+                {% if i.isApproved %}
+                <td><a href="{% url 'app:doctorRefuse' pk=i.pk %}" class="btn btn-warning" style="color: white;">Refuse</a></td>
+                {% else %}
+                <td><a href="{% url 'app:doctorApprove' pk=i.pk %}" class="btn btn-success">Approve</a></td>
+                {% endif %}
+
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% else %}
+<h3 class="text-center">No Doctor Found</h3>
+{% endif %}
+
+
+
+
+
+<div style="height:100px"></div>
+
+{% if patients %}
+<div class="container-fluid mybg">
+    <div class="col-xl-6 mx-auto m-0">
+        <h2 class="text-center">All Patients List</h2>
+        <p class="subtitleBlue text-center">The largest and most respected accreditation agencies</p>
+    </div>
+</div>
+
+<div class="container-fluid px-5">
+    <table class="table table-striped table-hover" id="jsDataTableLib2">
+        <thead>
+          <tr>
+            <th scope="col">username</th>
+            <th scope="col">firstName</th>
+            <th scope="col">lastName</th>
+            <th scope="col">email</th>
+            <th scope="col">dateOfBirth</th>
+            <th scope="col">address</th>
+            <th scope="col">contactNo</th>
+            <th scope="col">gender</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in patients %}
+            <tr>
+                <th scope="row">{{i.user.username}}</th>
+                <td>{{i.user.firstName}}</td>
+                <td>{{i.user.lastName}}</td>
+                <td>{{i.user.email}}</td>
+                <td>{{i.user.dateOfBirth }}</td>
+                <td>{{i.user.address}}</td>
+                <td>{{i.user.contactNo}}</td>
+                <td>{{i.gender}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% else %}
+<h3 class="text-center">No Patient Found</h3>
+{% endif %}
+
+
+
+
+<div style="height:100px"></div>
+
+{% if appoinments %}
+<div class="container-fluid mybg">
+    <div class="col-xl-6 mx-auto m-0">
+        <h2 class="text-center">All Appoinments List</h2>
+        <p class="subtitleBlue text-center">The largest and most respected accreditation agencies</p>
+    </div>
+</div>
+
+<div class="container-fluid px-5">
+    <table class="table table-striped table-hover" id="jsDataTableLib3">
+        <thead>
+          <tr>
+            <th scope="col">date</th>
+            <th scope="col">patient full name</th>
+            <th scope="col">doctor name</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in appoinments %}
+            <tr>
+                <th scope="row">{{i.date}}</th>
+                <td>{{i.pname.user.firstName}} {{i.pname.user.lastName}}</td>
+                <td>{{i.doctor.user.firstName}} {{i.doctor.user.lastName}}</td>
+                {% if i.isConfiremed %}
+                <td style="color: green;">Confirmed</td>
+                {% else %}
+                <td style="color: red;">Watting for Approval</td>
+                {% endif %}
+                
+                {% if i.isConfiremed %}
+                <td><a href="{% url 'app:bookingRefuse' pk=i.pk %}" class="btn btn-warning" style="color: white;">Cancel Booking</a></td>
+                {% else %}
+                <td><a href="{% url 'app:bookingApprove' pk=i.pk %}" class="btn btn-success">Confirm Booking</a></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% else %}
+<h3 class="text-center">No Appoinment Found</h3>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+<div style="height:200px"></div>
+
+{% endblock %}
+
+{% block script %}
+
+
+<style>
+    nav{
+        box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.5);
+    }
+    .mybg{        
+        height: 240px;
+    }
+    .subtitleBlue{
+        font-size: 15px;
+        line-height: 1.5;
+        font-weight: 600;
+        font-family: "Poppins", Arial, sans-serif;
+        color: #3c97e8;
+    }
+    .subtitleGrey{
+        font-size: 12px;
+        font-weight: 300;
+        font-family: "Poppins", Arial, sans-serif;
+        color: #868686;
+    }
+    .mybtn{
+        background-color: #9bdf46;
+        color:white !important;
+        width:240px;
+        height:50px; 
+        border-radius:50px;
+        border: none !important;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    .mybtn:hover{
+        border: 2px solid #9bdf46 !important;
+        color: #8de225 !important;
+        background-color: white;
+    }
+</style>
+
+
+
+
+{% endblock %}

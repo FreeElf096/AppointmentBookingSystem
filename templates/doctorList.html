@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="container-fluid mybg">
+    <div class="col-xl-6 mx-auto m-0">
+        <h2 class="text-center" style="color: white; font-weight: 600;">Meet Our Doctor</h2>
+        <p class="subtitleBlue text-center">The largest and most respected accreditation agencies</p>
+    </div>
+</div>
+
+<div style="height: 50px;"></div>
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="card-group">
+          {% for i in doctors %}
+            <div class="card col-xl-3 mx-4">
+              <img class="card-img-top" src="https://a6e8z9v6.stackpathcdn.com/mediz/hospital/wp-content/uploads/sites/2/2019/12/p-8-300x300.jpg" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">{{ i.user.firstName }} {{ i.user.lastName }}</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              </div>
+              <a href="{% url 'app:makeSelectedDrAppointment' pk=i.pk %}" class="btn btn-info" style="color: white;">Get Appoinment</a>
+              <div class="card-footer">
+                <small class="text-muted">{{ i.speciality }}</small>
+              </div>
+            </div>
+          {% endfor %}
+            
+          </div>
+    </div>
+</div>
+
+<div style="height: 50px;"></div>
+
+<style>
+    .mybg{        
+        background-image:url(" {% static 'imgs/hospital.jpg' %} ");
+        background-size: cover;
+        height: 260px;
+        padding-top: 80px;
+    }
+    .subtitleBlue{
+        font-size: 18px;
+        line-height: 1.5;
+        font-weight: 400;
+        font-family: "Poppins", Arial, sans-serif;
+        color: white;
+    }
+    .subtitleGrey{
+        font-size: 12px;
+        font-weight: 300;
+        font-family: "Poppins", Arial, sans-serif;
+        color: #868686;
+    }
+    .card-text{
+        font-size: 12px;
+    }
+    .mybtn{
+        background-color: #9bdf46;
+        color:white !important;
+        width:240px;
+        height:50px; 
+        border-radius:50px;
+        border: none !important;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    .mybtn:hover{
+        border: 2px solid #9bdf46 !important;
+        color: #8de225 !important;
+        background-color: white;
+    }
+</style>
+
+
+
+
+{% endblock %}
